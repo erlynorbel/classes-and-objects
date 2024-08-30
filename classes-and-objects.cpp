@@ -13,8 +13,6 @@ private:
 
 public:
     // Constructor with default parameters#include <iostream>
-
-
     Book(string userTitle = "", string userAuthor = "", int userYear = 0) {
         title = userTitle;
         author = userAuthor;
@@ -116,11 +114,10 @@ int main() {
                 library.searchBook(title);
                 break;
             case 4:  // Exit the program
-                cout << "Exiting the program..." << endl;
                 cout << "Thank you for using the program..." << endl; 
                 return 0;
             default:
-                cout << "Invalid choice. Please try again." << endl;
+                cout << "Invalid choice, please try again." << endl;
         }
     }
 
