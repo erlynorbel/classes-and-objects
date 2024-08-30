@@ -115,6 +115,7 @@ int main() {
                 break;
             case 4:  // Exit the program
                 cout << "Exiting the program..." << endl;
+                cout << "Thank you for using the program..." << endl; 
                 return 0;
             default:
                 cout << "Invalid choice. Please try again." << endl;
