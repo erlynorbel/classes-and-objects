@@ -1,6 +1,12 @@
 #include <iostream>
 #include <string>
 
+//For seconds delay..
+#ifdef _WIN32
+#include <Windows.h>
+#else
+#include <unistd.h>
+#endif
 using namespace std;
 
 const int MAX_BOOKS = 100;  // Maximum number of books the library can hold
@@ -12,7 +18,7 @@ private:
     int year;
 
 public:
-    // Constructor with default parameters#include <iostream>
+
     Book(string userTitle = "", string userAuthor = "", int userYear = 0) {
         title = userTitle;
         author = userAuthor;
@@ -78,6 +84,14 @@ public:
     }
 };
 
+void clearScreen(){
+    #ifdef WINDOWS
+        system("cls");
+    #else
+        system("clear");
+    #endif
+}
+
 int main() {
     Library library;  // Create a library object
     int choice;
@@ -91,10 +105,21 @@ int main() {
         cout << "3 - Search Book" << endl;
         cout << "4 - Exit" << endl;
         cout << "Enter your choice: ";
-        cin >> choice;
+        
+        if (!(cin >> choice)) {
+            clearScreen();
+            cout << "Invalid input. Please enter a number." << endl;
+            cin.clear();  // Clear the error state
+            cin.ignore(10000, '\n');  // Clear the input buffer
+            sleep(2);
+            clearScreen();
+            continue;
+        }
 
         switch (choice) {
             case 1:  // Add a new book
+                clearScreen();
+
                 cout << "Enter title: ";
                 cin.ignore();  // To ignore the newline character left in the input buffer
                 getline(cin, title);
@@ -103,20 +128,32 @@ int main() {
                 cout << "Enter year: ";
                 cin >> year;
                 library.addBook(title, author, year);
+
+                clearScreen();
                 break;
             case 2:  // Display all books
+                clearScreen();
+
                 library.displayBooks();
                 break;
             case 3:  // Search for a book by title
+                clearScreen();
+
                 cout << "Enter the title of the book to search: ";
                 cin.ignore();  // To ignore the newline character left in the input buffer
                 getline(cin, title);
                 library.searchBook(title);
+
+                clearScreen();
                 break;
             case 4:  // Exit the program
+                clearScreen();
+
                 cout << "Thank you for using the program..." << endl; 
                 return 0;
             default:
+                clearScreen();
+                
                 cout << "Invalid choice, please try again." << endl;
         }
     }
